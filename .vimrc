@@ -17,18 +17,14 @@ set mouse=a
 exec "nohlsearch"
 color desert
 
-noremap j h
-noremap i k
-noremap h i
-noremap k j
 noremap = nzz
 noremap - Nzz
 noremap <LEADER><CR> :nohlsearch<CR>
 
-map af :set splitright<CR>:vsplit<CR>
-map as :set nosplitright<CR>:vsplit<CR>
-map ae :set nosplitbelow<CR>:split<CR>
-map ad :set splitbelow<CR>:split<CR>
+map qf :set splitright<CR>:vsplit<CR>
+map qs :set nosplitright<CR>:vsplit<CR>
+map qe :set nosplitbelow<CR>:split<CR>
+map qd :set splitbelow<CR>:split<CR>
 
 map <LEADER>f <C-w>l
 map <LEADER>e <C-w>k
@@ -43,8 +39,7 @@ call plug#end()
 colorscheme snazzy
 
 map <F5> :call CompileRun()<CR>
-map <F6> :!./%< <CR>
-map <F7> <F5><F6>
+map <F6> :! <CR>
 func! CompileRun()
     exec "w"
     if &filetype == 'c'
