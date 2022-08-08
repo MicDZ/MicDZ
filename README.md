@@ -15,5 +15,6 @@ Here are some ideas to get you started:
 - ⚡ Fun fact: ...
 -->
 
-欢迎到访 [MicDZ's blog](https://www.micdz.cn)
+欢迎到访 [MicDZ's blog](https://www.micdz.cn)。
+
 ![MicDZ's github stats](https://github-readme-stats.vercel.app/api?username=MicDZ)
