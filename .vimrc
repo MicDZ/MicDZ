@@ -18,7 +18,11 @@ set softtabstop=4
 set smartindent
 set smarttab
 set nocp 
+set noexpandtab
 set backspace=indent,eol,start
+vmap <C-c> "+y
+nmap <C-b> "+p
+set scroll=10
 " Theme
 " set background=dark
 set background=dark
@@ -32,6 +36,15 @@ map qe :set nosplitbelow<CR>:split<CR>
 map qd :set splitbelow<CR>:split<CR>
 map <F5> :call CompileRun()<CR>
 map <F6> :!time ./%< <CR>
+
+" Smooth Scroll
+noremap <silent> <c-u> :call smooth_scroll#up(&scroll, 30,2)<CR>
+noremap <silent> <c-d> :call smooth_scroll#down(&scroll, 30, 2)<CR>
+noremap <silent> <c-b> :call smooth_scroll#up(&scroll*2, 30, 4)<CR>
+noremap <silent> <c-f> :call smooth_scroll#down(&scroll*2, 30, 4)<CR>
+" Smartim
+let g:smartim_default = 'com.apple.keylayout.ABC'
+
 "	Arduino
 nnoremap <buffer> <leader>aa <cmd>ArduinoAttach<CR>
 nnoremap <buffer> <leader>am <cmd>ArduinoVerify<CR>
@@ -50,23 +63,29 @@ Plug 'stevearc/vim-arduino'
 Plug 'jiangmiao/auto-pairs'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'Chiel92/vim-autoformat'
+Plug 'terryma/vim-smooth-scroll'
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
+Plug 'ybian/smartim'
 call plug#end()
 
 " Complie
 func! CompileRun()
     exec "w"
     if &filetype == 'c'
-        exec '!g++ -g % -o %<'
+        exec '!g++-12 -g % -o %<'
     elseif &filetype == 'cpp'
-        exec '!g++ -g % -o %<'
+        exec '!g++-12 -g % -o %<'
     elseif &filetype == 'python'
-        exec '!time python %'
+        exec '!time python3 %'
     elseif &filetype == 'sh'
         :!time bash %
     endif
 endfunc
 
 
+hi Pmenu ctermfg=7 ctermbg=236
+hi PmenuSel ctermfg=white ctermbg=32
+hi CocFloating ctermfg=black ctermbg=240
 " Some servers have issues with backup files, see #649.
 set nobackup
 set nowritebackup
