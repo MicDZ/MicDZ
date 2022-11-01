@@ -1,4 +1,4 @@
-### Hi there 👋
+
 
 <!--
 **MicDZ/MicDZ** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
@@ -14,7 +14,15 @@ Here are some ideas to get you started:
 - 😄 Pronouns: ...
 - ⚡ Fun fact: ...
 -->
-
+#### Introduction
 欢迎到访 [MicDZ's blog](https://www.micdz.cn)。
+
+- 🏫 Undergraduate @ HUST.
+- ✏️ Currently learning openCV, UIKit and embedded software.
+- 📫 Reach me: [me@micdz.cn](mailto:me@micdz.cn)
+
+
+#### Stats
+![MicDZ's Most used languages](https://github-readme-stats.vercel.app/api/top-langs?username=MicDZ&show_icons=true&count_private=false&hide=html)
 
 ![MicDZ's github stats](https://github-readme-stats.vercel.app/api?username=MicDZ)
