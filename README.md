@@ -18,7 +18,7 @@ Here are some ideas to get you started:
 欢迎到访 [MicDZ's blog](https://www.micdz.cn)。
 
 - 🏫 Undergraduate @ HUST.
-- ✏️ Currently learning openCV, UIKit and embedded software.
+- ✏️ Currently learning OpenCV, UIKit and embedded software.
 - 📫 Reach me: [me@micdz.cn](mailto:me@micdz.cn)
 
 
