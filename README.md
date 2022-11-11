@@ -15,7 +15,7 @@ Here are some ideas to get you started:
 - ⚡ Fun fact: ...
 -->
 #### Introduction
-欢迎到访 [MicDZ's blog](https://www.micdz.cn)。
+Welcome to [MicDZ's blog](https://www.micdz.cn).
 
 - 🏫 Undergraduate @ HUST.
 - ✏️ Currently learning OpenCV, UIKit and embedded software.
