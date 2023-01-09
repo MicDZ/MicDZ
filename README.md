@@ -17,7 +17,7 @@ Here are some ideas to get you started:
 #### Introduction
 Welcome to [MicDZ's blog](https://www.micdz.cn).
 
-- 🏫 Undergraduate @ HUST.
+- 🏫 Undergraduate @ [HUST](https://hust.edu.cn).
 - ✏️ Currently learning OpenCV, UIKit and embedded software.
 - 📫 Reach me: [me@micdz.cn](mailto:me@micdz.cn)
 
