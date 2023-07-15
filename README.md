@@ -15,10 +15,10 @@ Here are some ideas to get you started:
 - ⚡ Fun fact: ...
 -->
 #### Introduction
-Welcome to [MicDZ's blog](https://www.micdz.cn).
+Welcome to [MicDZ's blog](https://micdz.github.io).
 
 - 🏫 Undergraduate @ [HUST](https://hust.edu.cn).
-- ✏️ Currently learning OpenCV, UIKit and embedded software.
+- ✏️ Currently learning ML, Sensors and embedded software.
 - 📫 Reach me: [me@micdz.cn](mailto:me@micdz.cn)
 
 
