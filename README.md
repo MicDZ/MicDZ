@@ -24,5 +24,3 @@ Welcome to [MicDZ's blog](https://micdz.github.io).
 
 #### Stats
 ![MicDZ's Most used languages](https://github-readme-stats.vercel.app/api/top-langs?username=MicDZ&show_icons=true&count_private=false&hide=html)
-
-![MicDZ's github stats](https://github-readme-stats.vercel.app/api?username=MicDZ)
