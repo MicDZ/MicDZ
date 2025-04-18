@@ -18,8 +18,8 @@ Here are some ideas to get you started:
 Welcome to [MicDZ's blog](https://micdz.github.io).
 
 - 🏫 Undergraduate @ [HUST](https://hust.edu.cn).
-- ✏️ Currently learning ML, Sensors and embedded software.
-- 📫 Reach me: [me@micdz.cn](mailto:me@micdz.cn)
+- ✏️ Reasearch intrests: Machine Learning, Computer Vision, Deep Learning, Robotics.
+- 📫 Reach me: [me@micdz.cn](mailto:me@micdz.cn).
 
 
 #### Stats
