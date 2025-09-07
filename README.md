@@ -24,6 +24,3 @@ Welcome to [MicDZ's blog](https://micdz.github.io).
 
 #### Stats
 ![](https://img.shields.io/github/stars/micdz)
-
-### Visitors Count
-![](https://profile-counter.glitch.me/micdz/count.svg)
