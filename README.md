@@ -23,4 +23,5 @@ Welcome to [MicDZ's blog](https://micdz.github.io).
 
 
 #### Stats
-![](https://img.shields.io/github/stars/micdz)
+![](https://img.shields.io/github/stars/micdz?affiliations=COLLABORATOR%2COWNER)
+![](https://img.shields.io/github/followers/micdz)
