@@ -4,7 +4,7 @@
 Welcome to [MicDZ's blog](https://www.micdz.cn).
 
 - 🏫 Undergraduate @ [HUST](https://hust.edu.cn).
-- ✏️ Research interests: Machine Learning, Robotics, Computer Vision, Deep Learning.
+- ✏️ Research interests: Deep Learning, Robotics, Computer Vision.
 - 📫 Reach me: [me@micdz.cn](mailto:me@micdz.cn).
 
 
