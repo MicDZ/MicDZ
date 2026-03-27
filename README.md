@@ -1,7 +1,7 @@
 
 
 #### Introduction
-Welcome to [MicDZ's blog](https://www.micdz.cn/?id=3d47gh).
+Welcome to my [Home Page](https://www.micdz.cn/?id=3d47gh).
 
 - 🏫 Undergraduate @ [HUST](https://hust.edu.cn).
 - ✏️ Research interests: Deep Learning, Robotics, Computer Vision.
