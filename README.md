@@ -3,7 +3,8 @@
 #### Introduction
 Welcome to my [Home Page](https://www.micdz.cn/?id=3d47gh).
 
-- 🏫 Undergraduate @ [HUST](https://hust.edu.cn).
+- 🎓 2026 - Present Ph.D. Student in Robotics @ [MBZUAI](https://mbzuai.ac.ae).
+- 🏫 2022 - 2026 B.Eng. in Telecommunications engineering @ [HUST](https://hust.edu.cn).
 - ✏️ Research interests: Deep Learning, Robotics, Computer Vision.
 - 📫 Reach me: [me@micdz.cn](mailto:me@micdz.cn).
 
