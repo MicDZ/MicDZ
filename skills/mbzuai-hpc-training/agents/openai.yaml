@@ -1,0 +1,4 @@
+interface:
+  display_name: "MBZUAI HPC Training"
+  short_description: "Plan and run policy-compliant MBZUAI HPC training jobs"
+  default_prompt: "Use $mbzuai-hpc-training to prepare a safe CSCC training job for han.zhou without submitting it."
