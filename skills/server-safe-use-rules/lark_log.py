@@ -6,7 +6,7 @@ Usage:
       --name EXP-2026-0927-lr2e4 --status 成功 --agent Claude \
       --verdict 得出结论 --nature 调参实验 --project RCL-baseline \
       --start "2026-09-26 09:12" --end "2026-09-26 15:48" --hours 6.6 \
-      --gpu-model H200 --gpu-count 1 --gpu-hours 6.6 --vram 41.2 \
+      --device-model "RTX 6000 Ada" --device-count 1 --device-hours 6.6 --device-mem 41.2 \
       --dataset GSM8K --dataset-path /mnt/nas/SharedDatasets/gsm8k/ \
       --metric gsm8k_acc --metric-value 0.612 --baseline 0.594 --delta 0.018 \
       --hypothesis "..." --method "..." --metrics-json '{"acc":0.612}' \
@@ -16,7 +16,10 @@ Usage:
 
 Everything is optional except --name. Times accept "YYYY-MM-DD HH:MM" (local) or epoch ms.
 Single/multi-select fields: if you pass a value that is not an existing option, it is
-created automatically (so GPU型号 can be any real GPU, project can be anything).
+created automatically (so 计算设备型号 can be any real device, project can be anything).
+
+Compute device fields work for CPUs too: use e.g. --device-model "CPU (AMD)" for a
+CPU-only experiment, and omit --device-mem (there is no meaningful VRAM for CPU work).
 """
 import argparse
 import datetime
@@ -39,8 +42,8 @@ if not APP_ID or not APP_SECRET:
 # field_name -> type. select fields map to their option-set so we can auto-create.
 TEXT = ["数据集", "数据集路径", "假设与目标", "方法与改动", "指标(JSON)",
         "结果摘要", "结论与后续", "代码/配置路径", "日志/产物路径", "运行环境", "主指标名称"]
-NUM = ["时长(小时)", "GPU数量", "GPU时长(卡时)", "峰值显存(GB)", "主指标值", "基线值", "提升"]
-SINGLE = {"状态": "状态", "执行 Agent": "执行 Agent", "简明结论": "简明结论", "GPU型号": "GPU型号",
+NUM = ["时长(小时)", "计算设备数量", "计算设备时长", "计算设备显存(GB)", "主指标值", "基线值", "提升"]
+SINGLE = {"状态": "状态", "执行 Agent": "执行 Agent", "简明结论": "简明结论", "计算设备型号": "计算设备型号",
           "项目": "项目"}
 MULTI = {"实验性质": "实验性质", "Tags": "Tags"}
 
@@ -160,8 +163,12 @@ def main():
     p.add_argument("--status"); p.add_argument("--agent"); p.add_argument("--verdict")
     p.add_argument("--nature", action="append"); p.add_argument("--project")
     p.add_argument("--start"); p.add_argument("--end"); p.add_argument("--hours", type=float)
-    p.add_argument("--gpu-model"); p.add_argument("--gpu-count", type=float)
-    p.add_argument("--gpu-hours", type=float); p.add_argument("--vram", type=float)
+    # compute-device flags; --gpu-* kept as aliases for backward compatibility
+    p.add_argument("--device-model", "--gpu-model", dest="device_model")
+    p.add_argument("--device-count", "--gpu-count", dest="device_count", type=float)
+    p.add_argument("--device-hours", "--gpu-hours", dest="device_hours", type=float)
+    p.add_argument("--device-mem", "--vram", dest="device_mem", type=float,
+                   help="peak memory in GB (GPU VRAM, or RAM for CPU runs)")
     p.add_argument("--dataset"); p.add_argument("--dataset-path")
     p.add_argument("--metric"); p.add_argument("--metric-value", type=float)
     p.add_argument("--baseline", type=float); p.add_argument("--delta", type=float)
@@ -176,7 +183,7 @@ def main():
     if a.status: f["状态"] = ensure_options("状态", [a.status])[0]
     if a.agent: f["执行 Agent"] = ensure_options("执行 Agent", [a.agent])[0]
     if a.verdict: f["简明结论"] = ensure_options("简明结论", [a.verdict])[0]
-    if a.gpu_model: f["GPU型号"] = ensure_options("GPU型号", [a.gpu_model])[0]
+    if a.device_model: f["计算设备型号"] = ensure_options("计算设备型号", [a.device_model])[0]
     if a.nature: f["实验性质"] = ensure_options("实验性质", a.nature)
     if a.tags: f["Tags"] = ensure_options("Tags", [t.strip() for t in a.tags.split(",") if t.strip()])
     if a.project: f["项目"] = ensure_options("项目", [a.project])[0]  # 项目 is a single-select
@@ -185,9 +192,9 @@ def main():
                      (a.conclusion, "结论与后续"), (a.code_path, "代码/配置路径"),
                      (a.log_path, "日志/产物路径"), (a.env, "运行环境"), (a.metric, "主指标名称")):
         if arg: f[key] = arg
-    for arg, key in ((a.hours, "时长(小时)"), (a.gpu_count, "GPU数量"), (a.gpu_hours, "GPU时长(卡时)"),
-                     (a.vram, "峰值显存(GB)"), (a.metric_value, "主指标值"),
-                     (a.baseline, "基线值"), (a.delta, "提升")):
+    for arg, key in ((a.hours, "时长(小时)"), (a.device_count, "计算设备数量"),
+                     (a.device_hours, "计算设备时长"), (a.device_mem, "计算设备显存(GB)"),
+                     (a.metric_value, "主指标值"), (a.baseline, "基线值"), (a.delta, "提升")):
         if arg is not None: f[key] = arg
     if a.start: f["开始时间"] = to_ms(a.start)
     if a.end: f["结束时间"] = to_ms(a.end)

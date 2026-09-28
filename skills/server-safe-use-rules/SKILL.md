@@ -62,7 +62,7 @@ python3 <skill_dir>/lark_log.py \
   --status 成功 --agent Claude --verdict 得出结论 \
   --nature 调参实验 --project RCL-baseline \
   --start "2026-09-26 09:12" --end "2026-09-26 15:48" --hours 6.6 \
-  --gpu-model H200 --gpu-count 1 --gpu-hours 6.6 --vram 41.2 \
+  --device-model "RTX 6000 Ada" --device-count 2 --device-hours 6.6 --device-mem 41.2 \
   --dataset GSM8K --dataset-path /mnt/nas/SharedDatasets/gsm8k/ \
   --metric gsm8k_acc --metric-value 0.612 --baseline 0.594 --delta 0.018 \
   --hypothesis "..." --method "..." --metrics-json '{"acc":0.612}' \
@@ -87,10 +87,11 @@ Only `--name` is required. Everything else is optional; pass what you have, omit
 - `--project` → 项目. Plain text project name.
 - `--start` / `--end` → 开始/结束时间. `"YYYY-MM-DD HH:MM"` (UTC) or epoch ms.
 - `--hours` → 时长(小时). Number.
-- `--gpu-model` → GPU型号. **Pass the real GPU name** (e.g. `H200`, `RTX 6000 Ada`, `RTX 5090`). If it isn't an existing option, the script creates the option — never fall back to `其他` just because the exact name isn't listed. **For CPU-only experiments, omit `--gpu-model/--gpu-count/--gpu-hours/--vram` entirely.**
-- `--gpu-count` → GPU数量. Number.
-- `--gpu-hours` → GPU时长(卡时) = gpu-count × hours. Number.
-- `--vram` → 峰值显存(GB). Number.
+- `--device-model` → 计算设备型号. **Pass the real device name.** For GPU work: `H200`, `A100`, `RTX 6000 Ada`, `RTX 5090`, etc. For CPU work: `CPU (Intel)`, `CPU (AMD)`, `CPU (Apple Silicon)`. If it isn't an existing option, the script creates the option — never fall back to `其他` just because the exact name isn't listed. Record CPU-only experiments too, with their CPU model.
+- `--device-count` → 计算设备数量. Number (GPU count, or core/process count for CPU).
+- `--device-hours` → 计算设备时长 = device-count × hours. Number. For GPU work this is card-hours.
+- `--device-mem` → 计算设备显存(GB). Peak memory in GB. Optional — omit for CPU-only runs, where there is no meaningful number here.
+- The older `--gpu-model/--gpu-count/--gpu-hours/--vram` flags still work as aliases.
 - `--dataset` / `--dataset-path` → 数据集 / 数据集路径.
 - `--metric` / `--metric-value` / `--baseline` / `--delta` → 主指标名称/主指标值/基线值/提升. The single most important metric.
 - `--hypothesis` / `--method` / `--summary` / `--conclusion` → 假设与目标 / 方法与改动 / 结果摘要 / 结论与后续.
