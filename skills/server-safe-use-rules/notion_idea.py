@@ -78,10 +78,13 @@ def main():
         if arg: props[key] = {"select": {"name": arg}}
     if a.direction:
         props["方向"] = {"multi_select": [{"name": x} for x in a.direction]}
+    if a.project:
+        props["项目"] = {"multi_select": [
+            {"name": p.strip()} for p in a.project.split(",") if p.strip()]}
     if a.tags:
         props["Tags"] = {"multi_select": [
             {"name": t.strip()} for t in a.tags.split(",") if t.strip()]}
-    for arg, key in ((a.project, "项目"), (a.claim, "核心 claim"), (a.gap, "为什么是空白"),
+    for arg, key in ((a.claim, "核心 claim"), (a.gap, "为什么是空白"),
                      (a.method, "方法骨架"), (a.data_eval, "数据与评测"), (a.risk, "风险"),
                      (a.competitors, "竞品/相关工作"), (a.assets, "资产衔接"),
                      (a.venue, "目标会议"), (a.compute, "预估算力"), (a.next, "下一步")):

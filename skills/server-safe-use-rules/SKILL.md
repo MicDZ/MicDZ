@@ -86,7 +86,7 @@ Only `--name` is required. Everything else is optional; pass what you have, omit
 - `--agent` → 执行 Agent. `Claude` / `Codex` / `人工` (whichever you are).
 - `--verdict` → 简明结论. `得出结论`/`得出部分结论`/`无法得出结论`/`待分析`.
 - `--nature` → 实验性质 (repeatable). `主实验`/`消融实验`/`调参实验`/`预实验`/`复现验证`/`调试排错`.
-- `--project` → 项目. Plain text project name.
+- `--project` → 项目. Multi-select; comma-separated for more than one, e.g. `CloseLoopHOI,HOIEstimation`. Existing options: `CloseLoopHOI` `HOIEstimation`. New names are created automatically.
 - `--start` / `--end` → 开始/结束时间. `"YYYY-MM-DD HH:MM"` (UTC), ISO 8601, or epoch ms.
 - `--hours` → 时长(小时). Number.
 - `--device-model` → 计算设备型号. **Pass the real device name.** For GPU work: `H200`, `A100`, `RTX 6000 Ada`, `RTX 5090`, etc. For CPU work: `CPU (Intel)`, `CPU (AMD)`, `CPU (Apple Silicon)`. If it isn't an existing option, the script creates the option — never fall back to `其他` just because the exact name isn't listed. Record CPU-only experiments too, with their CPU model.
@@ -141,7 +141,7 @@ Only `--name` is required; pass what you have. Takes `NOTION_TOKEN` and `NOTION_
 - `--priority` → 优先级. `P0`/`P1`/`P2`/`P3`.
 - `--source` → 来源. `文献调研`/`实验观察`/`讨论`/`审稿意见`/`其他`.
 - `--agent` → 提出者. `Claude`/`Codex`/`人工` (whichever you are).
-- `--project` → 项目. Plain text.
+- `--project` → 项目. Multi-select; comma-separated for more than one. Existing options: `CloseLoopHOI` `HOIEstimation`. New names are created automatically.
 - `--direction` → 方向 (repeatable). Existing: `前馈估计` `视频扩散骨干` `生成式先验` `可靠性与不确定性` `物理仿真` `数据引擎` `评测基准` `铰接/可变形` `MLLM` `长时程跟踪`.
 - `--claim` → 核心 claim. `--gap` → 为什么是空白. `--method` → 方法骨架.
 - `--data-eval` → 数据与评测. `--risk` → 风险. `--competitors` → 竞品/相关工作.

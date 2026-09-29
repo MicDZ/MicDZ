@@ -148,7 +148,10 @@ def main():
     if a.tags:
         props["Tags"] = {"multi_select": [
             {"name": t.strip()} for t in a.tags.split(",") if t.strip()]}
-    for arg, key in ((a.project, "项目"), (a.dataset, "数据集"), (a.dataset_path, "数据集路径"),
+    if a.project:
+        props["项目"] = {"multi_select": [
+            {"name": p.strip()} for p in a.project.split(",") if p.strip()]}
+    for arg, key in ((a.dataset, "数据集"), (a.dataset_path, "数据集路径"),
                      (a.hypothesis, "假设与目标"), (a.method, "方法与改动"),
                      (a.metrics_json, "指标(JSON)"), (a.summary, "结果摘要"),
                      (a.conclusion, "结论与后续"), (a.code_path, "代码/配置路径"),
