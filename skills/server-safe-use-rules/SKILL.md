@@ -1,6 +1,6 @@
 ---
 name: server-safe-use-rules
-description: Apply server safe use rules when working with server storage, personal workspaces, shared datasets, or GPU workloads, and log experiments and research ideas to Notion when they finish.
+description: Apply server safe use rules when working with server storage, personal workspaces, shared datasets, or GPU workloads, and keep the Notion databases of experiments, research ideas, and todos up to date.
 ---
 
 # Server Safe Use Rules
@@ -147,3 +147,36 @@ Only `--name` is required; pass what you have. Takes `NOTION_TOKEN` and `NOTION_
 - `--data-eval` → 数据与评测. `--risk` → 风险. `--competitors` → 竞品/相关工作.
 - `--assets` → 资产衔接. `--venue` → 目标会议. `--compute` → 预估算力. `--next` → 下一步.
 - `--date` → 提出日期. `--link` → 关联链接 (a URL). `--tags` → Tags, comma-separated. Existing: `survey` `feedforward` `generative` `benchmark` `physics` `data` `uncertainty`.
+
+## 7. Track todos in Notion
+
+Keep the Todos database current as you work: add a todo when you or the user agrees on something to do, and flip it to `已完成` when you finish it. Use `notion_todo.py` (next to this SKILL.md). Same rules as section 5 — one command, no probing, no hand-rolled API calls.
+
+```bash
+# create
+python3 <skill_dir>/notion_todo.py \
+  --task "给 MPPI teacher 加动作代价项" \
+  --status 待办 --priority P1 --agent Claude --project CloseLoopHOI \
+  --type 编码 --type 实验 --due 2026-09-30 --estimate 3 \
+  --description "..." --experiment EXP-2026-0927-dagger-v2 \
+  --link "https://..." --tags quick-win
+
+# update an existing one (mark done, reprioritize, ...)
+python3 <skill_dir>/notion_todo.py --page-id <uuid> --status 已完成 --done-time 2026-09-29
+```
+
+Takes `NOTION_TOKEN` and `NOTION_TODO_DATA_SOURCE_ID` from the environment (already set on this machine). `--page-id` comes from the `OK page_id:` line of the create call, or from the row's URL.
+
+- `--task` → 任务 (title). Required when creating.
+- `--page-id` → update this existing todo instead of creating a new one.
+- `--status` → 状态. `待办`/`进行中`/`已完成`/`已阻塞`/`已取消`.
+- `--priority` → 优先级. `P0`/`P1`/`P2`/`P3`.
+- `--agent` → 执行 Agent. `Claude`/`Codex`/`人工`.
+- `--project` → 项目. Multi-select, comma-separated. Existing: `CloseLoopHOI` `HOIEstimation`.
+- `--type` → 任务类型 (repeatable). `实验`/`编码`/`阅读`/`写作`/`数据`/`部署`/`调试`.
+- `--due` / `--done-time` → 截止日期 / 完成时间. `YYYY-MM-DD` (UTC) or ISO 8601.
+- `--estimate` → 预估时长(小时). Number.
+- `--description` → 描述. `--experiment` → 关联实验 (an experiment name, free text).
+- `--link` → 关联链接 (a URL). `--tags` → Tags, comma-separated. Existing: `blocker` `quick-win` `long-term` `review` `paper`.
+
+Only create todos that were actually agreed on — don't invent work items. Keep statuses accurate; a stale board is worse than none.
