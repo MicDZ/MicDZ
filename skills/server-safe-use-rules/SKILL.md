@@ -1,6 +1,6 @@
 ---
 name: server-safe-use-rules
-description: Apply server safe use rules when working with server storage, personal workspaces, shared datasets, or GPU workloads.
+description: Apply server safe use rules when working with server storage, personal workspaces, shared datasets, or GPU workloads, and log experiments and research ideas to Notion when they finish.
 ---
 
 # Server Safe Use Rules
@@ -117,3 +117,33 @@ If an experiment got a real, keep-worthy result, pass `--page @file.md` with a b
 ### 5.5 Fallback API facts
 
 Only if `notion_log.py` is missing or broken: base URL `https://api.notion.com/v1`, header `Notion-Version: 2026-03-11`. Rows are created with `POST /pages` and parent `{"type":"data_source_id","data_source_id":<id>}` — **not** `database_id` (Notion's 2025-09 data-source model). Query rows with `PATCH /data_sources/{id}/query`. If you hit something the script can't do, tell the user rather than rebuilding it.
+
+## 6. Log research ideas to Notion
+
+When you formulate a research idea worth keeping — a new method, a gap you spotted in the literature, a direction worth pursuing — log it to the Ideas database with `notion_idea.py` (next to this SKILL.md). Same rules as section 5: one command, no probing, no hand-rolled API calls.
+
+This is for ideas, not results. Experiments go to the Experiments table (section 5).
+
+```bash
+python3 <skill_dir>/notion_idea.py \
+  --name "IDEA-2026-0928-01 视频扩散骨干手物联合前馈" \
+  --status 待评估 --priority P0 --source 文献调研 --agent Claude --project HOIEstimation \
+  --direction 前馈估计 --direction 视频扩散骨干 \
+  --claim "..." --gap "..." --method "..." --data-eval "..." --risk "..." \
+  --competitors "..." --assets "..." --venue "CVPR 2027" --compute "8x80GB, 1-2 周" \
+  --next "..." --date 2026-09-28 --link "https://..." --tags survey,feedforward
+```
+
+Only `--name` is required; pass what you have. Takes `NOTION_TOKEN` and `NOTION_IDEAS_DATA_SOURCE_ID` from the environment (already set on this machine).
+
+- `--name` → 想法名称. Short id + one-line title, like `IDEA-2026-0928-01 视频扩散骨干手物联合前馈`.
+- `--status` → 状态. `待评估`/`评估中`/`已采纳`/`进行中`/`已完成`/`已放弃`.
+- `--priority` → 优先级. `P0`/`P1`/`P2`/`P3`.
+- `--source` → 来源. `文献调研`/`实验观察`/`讨论`/`审稿意见`/`其他`.
+- `--agent` → 提出者. `Claude`/`Codex`/`人工` (whichever you are).
+- `--project` → 项目. Plain text.
+- `--direction` → 方向 (repeatable). Existing: `前馈估计` `视频扩散骨干` `生成式先验` `可靠性与不确定性` `物理仿真` `数据引擎` `评测基准` `铰接/可变形` `MLLM` `长时程跟踪`.
+- `--claim` → 核心 claim. `--gap` → 为什么是空白. `--method` → 方法骨架.
+- `--data-eval` → 数据与评测. `--risk` → 风险. `--competitors` → 竞品/相关工作.
+- `--assets` → 资产衔接. `--venue` → 目标会议. `--compute` → 预估算力. `--next` → 下一步.
+- `--date` → 提出日期. `--link` → 关联链接 (a URL). `--tags` → Tags, comma-separated. Existing: `survey` `feedforward` `generative` `benchmark` `physics` `data` `uncertainty`.
