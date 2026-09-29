@@ -110,9 +110,11 @@ Only `--name` is required. Everything else is optional; pass what you have, omit
 - **Do not** read the page back to confirm it was written. The script already errors out if the API rejected it; `OK page_id:` means success.
 - **Do not** hand-build Notion JSON. Notion is picky (every property needs a `type` key, rich_text is an array of objects, dates are ISO strings). The script maps the simple flags above to the correct shape.
 
-### 5.4 Detail pages for experiments that made progress
+### 5.4 Detail docs for experiments that made progress
 
-If an experiment got a real, keep-worthy result, pass `--page @file.md` with a body covering at minimum: **实验设计** (what & why), **如何复现** (data, config, command, environment), **结果与分析**. The script writes those blocks onto the row's own page. For routine/failed/abandoned experiments, skip `--page`.
+If an experiment got a real, keep-worthy result, pass `--page @file.md` with a body covering at minimum: **实验设计** (what & why), **如何复现** (data, config, command, environment), **结果与分析**. The script creates a **standalone detail doc** nested under the row's page, fills it, and points the row's 关联链接 at it — so the row links straight to the full write-up. For routine/failed/abandoned experiments, skip `--page`.
+
+The markdown body supports `#`/`##`/`###` headings, `- ` bullets, and plain paragraphs.
 
 ### 5.5 Fallback API facts
 

@@ -18,8 +18,9 @@ Everything is optional except --name. Times accept "YYYY-MM-DD HH:MM" (UTC) or I
 Single/multi-select: pass the real value; if it is not an existing option, the script
 creates it. Compute-device fields work for CPUs too (e.g. --device-model "CPU (AMD)").
 
---page optionally writes a markdown body onto the row's own page (experiment design,
-how to reproduce, results and analysis). Use it for experiments that made progress.
+--page @detail.md optionally creates a standalone detail doc (nested under the row's
+page) with that markdown body, and points the row's 关联链接 at it. Use it for
+experiments that made real progress.
 """
 import argparse
 import datetime
@@ -177,10 +178,20 @@ def main():
     print("url:", url)
 
     if a.page:
+        # A standalone child doc nested under this experiment's row page, so the
+        # full write-up lives in its own document but stays attached to the run.
         blocks = md_to_blocks(a.page)
+        title = f"{a.name} 详情"
+        doc = api("POST", "/pages", {
+            "parent": {"type": "page_id", "page_id": pid},
+            "properties": {"title": [{"text": {"content": title}}]},
+        })
         for i in range(0, len(blocks), 100):
-            api("PATCH", f"/blocks/{pid}/children", {"children": blocks[i:i + 100]})
-        print("detail body written:", len(blocks), "blocks")
+            api("PATCH", f"/blocks/{doc['id']}/children", {"children": blocks[i:i + 100]})
+        api("PATCH", f"/pages/{pid}",
+            {"properties": {"关联链接": {"url": doc["url"]}}})
+        print("detail doc:", doc["url"])
+        print("detail blocks:", len(blocks))
 
 
 if __name__ == "__main__":
